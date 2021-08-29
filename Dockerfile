@@ -1,9 +1,9 @@
-FROM debian:latest
+FROM node:lts
 
-RUN apt-get update && apt-get install -qq -y \
-    shellcheck \
-  && rm -rf /var/lib/apt/lists/*
+WORKDIR /app/
 
-WORKDIR /usr/src/app/
+COPY package.json /app/
 
-COPY . /usr/src/app/
+RUN npm install
+
+COPY . /app/

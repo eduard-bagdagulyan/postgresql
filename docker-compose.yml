@@ -1,13 +1,23 @@
 version: '3'
 services:
+  app:
+    image: 'node:lts'
+    working_dir: /app/
+    command: npm run dev
+    ports: 
+      - "3000:3000"
+    depends_on: 
+      - database
+    volumes:
+        - ./:/app
   database:
-    image: "postgres" # use latest official postgres version
+    image: "postgres"
     ports:
       - "5432:5432"
     env_file:
-      - database.env # configure postgres
+      - database.env
     volumes:
-      - database-data:/var/lib/postgresql/data/ # persist data even if container shuts down
+      - database-data:/var/lib/postgresql/data/
 
 volumes:
-  database-data: # named volumes can be managed easier using docker-compose
+  database-data:
